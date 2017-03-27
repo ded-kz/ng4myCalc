@@ -1,13 +1,22 @@
 import { Component } from '@angular/core';
 
+
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css']
 })
+
 export class AppComponent {
   title = 'app works!';
-  foods = [
+
+// Материалы труб
+  public roles = [
+    { value: 'admin', display: 'Administrator' },
+    { value: 'guest', display: 'Guest' },
+    { value: 'custom', display: 'Custom' }
+  ]
+ public pipeMaterials = [
     	{name: 'К50-500 МПа (50кг/мм2)', pressure: 500},
     	{name: 'К52-520 МПа (52 кг/мм2)', pressure: 520},
     	{name: 'К56-560 МПа (56 кг/мм2)', pressure: 560},

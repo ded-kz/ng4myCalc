@@ -32,44 +32,45 @@
                 Данные об участке МГ
             </div>
             <div class="panel-body">
-                <div class="row">
-                    <div class="col-lg-12">
-                        <form role="form">
+                <form role="form">
+                    <div class="row">
+                        <div class="col col-sm-12 col-lg-8">
                             <div class="form-group">
                                 <input type="text" class="form-control" name="" id="" placeholder="Принадлежность дефекта" value="УМГ Уральск, Уральское ЛПУ, МГ САЦ-4, I-нитка, 1024 км.">
                             </div>
-                            <div class="row">
-                                <div class="col-lg-6">
-                                    <div class="form-group">
-                                        <select class="form-control">
-                                    <option>1</option>
-                                    <option>2</option>
-                                    <option>3</option>
-                                    <option>4</option>
-                                    <option>5</option>
-                                </select>
-                                    </div>
-                                    <div class="form-group">
-                                        <input type="text" class="form-control" name="" id="" placeholder="1">
-                                    </div>
-                                    <div class="form-group">
-                                        <input type="text" class="form-control" name="" id="" placeholder="2">
-                                    </div>
-                                    <!--                               
+                        </div>
+                        <div class="col col-lg-4">
+                            <div class="form-group">
+                                <label>Материал трубы:</label>
+                                <select name="pipeMaterial" class="form-control" [(ngModel)]="pipeMaterial" >
+                                <option *ngFor="let pipeMaterial of pipeMaterials" [value]="pipeMaterial.pressure">{{pipeMaterial.name}}</option>
+                                 </select>                                 
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-xs-6 col-sm-4">
+                            <div class="form-group">
+                                <input type="text" class="form-control" name="" id="" placeholder="1">
+                            </div>
+                            <div class="form-group">
+                                <input type="text" class="form-control" name="" id="" placeholder="2">
+                            </div>
+                            <!--                               
                                 <text-box my-model="GOST" label="ГОСТ или технические условия:" required="false" myid="test"></text-box>
                                 <text-box my-model="vendor" label="Изготовитель:" required="false"></text-box>
                                 <combo-box my-model="category" collection="['I','II','III']" hiddenvalues="['0.7','0.85','1']" label="Категория участка:" myid="category" target="workCondCoef"></combo-box>
                                 <numeric-up-down my-model="workingPressure" value="0" myid="workingPressure" minimum="0" maximum="9.8" interval="0.1" label="Рабочее давление (МПа):"></numeric-up-down>
                                 <numeric-up-down my-model="frameWidth" value="0" myid="frameWidth" minimum="0" maximum="10000" interval="0.1" label="Толщина стенки (мм):"></numeric-up-down>-->
-                                </div>
-                                <div class="col-lg-6">
-                                    <div class="form-group">
-                                        <input type="text" class="form-control" name="" id="" placeholder="3">
-                                    </div>
-                                    <div class="form-group">
-                                        <input type="text" class="form-control" name="" id="" placeholder="4">
-                                    </div>
-                                    <!-- <numeric-up-down my-model="outerWidth" value="0" myid="outerWidth" minimum="0" maximum="10000" interval="0.1" label="Внешний диаметр трубы (мм):"></numeric-up-down>                                                        
+                        </div>
+                        <div class="col-xs-6 col-sm-4">
+                            <div class="form-group">
+                                <input type="text" class="form-control" name="" id="" placeholder="3">
+                            </div>
+                            <div class="form-group">
+                                <input type="text" class="form-control" name="" id="" placeholder="4">
+                            </div>
+                            <!-- <numeric-up-down my-model="outerWidth" value="0" myid="outerWidth" minimum="0" maximum="10000" interval="0.1" label="Внешний диаметр трубы (мм):"></numeric-up-down>                                                        
                                 <numeric-up-down my-model="loadCoef" value="0" myid="loadCoef" minimum="0" maximum="10000" interval="0.1" label="Коэффициент надежности по нагрузке:" tooltip="tooltip1"></numeric-up-down>
                                 <combo-box my-model="pipematRelCoef" myid="pipematRelCoef" collection="['1.34','1.40','1.47','1.55']" label="Коэффициент надежности по материалу труб:" tooltip="tooltip3"></combo-box>
                                 <numeric-up-down my-model="workCondCoef" value="0.7" myid="workCondCoef" minimum="0" maximum="10000" interval="0.1" access="disabled" label="Коэффициент условий работы:" tooltip="tooltip2" disabled="true"></numeric-up-down>
@@ -77,11 +78,9 @@
                                 <numeric-up-down my-model="tempDelta" value="0" myid="tempDelta" minimum="0" maximum="10000" interval="0.1" label="Температурный перепад (град. С):" required="false"></numeric-up-down>
                                 <numeric-up-down my-model="lVelocity" value="0" myid="lVelocity" minimum="0" maximum="10000" interval="0.1" label="Скорость роста дефекта в длину (мм/год):" required="false"></numeric-up-down>
                                 <numeric-up-down my-model="dVelocity" value="0" myid="dVelocity" minimum="0" maximum="10000" interval="0.1" label="Скорость роста дефекта в глубину (мм/год):" required="false"></numeric-up-down>-->
-                                </div>
-                            </div>
-                        </form>
+                        </div>
                     </div>
-                </div>
+                </form>
             </div>
         </div>
     </div>

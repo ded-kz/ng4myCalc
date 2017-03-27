@@ -5,20 +5,20 @@ import { HttpModule } from '@angular/http';
 
 import { AppComponent } from './app.component';
 import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
+import { MaterialModule } from '@angular/material';
 
 @NgModule({
-  declarations: [
-    AppComponent
-    
-  ],
+  declarations: [AppComponent],
   imports: [
     BrowserModule,
     FormsModule,
     HttpModule,
-    NgbModule.forRoot()
+    NgbModule.forRoot(),
+    MaterialModule.forRoot()
   ],
   providers: [],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
+export class PizzaPartyAppModule { }
 

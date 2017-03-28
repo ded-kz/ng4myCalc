@@ -10,13 +10,14 @@ import { Component } from '@angular/core';
 export class AppComponent {
   title = 'app works!';
 
-// Материалы труб
-  public roles = [
-    { value: 'admin', display: 'Administrator' },
-    { value: 'guest', display: 'Guest' },
-    { value: 'custom', display: 'Custom' }
+//Категория участка
+  public categoryArray = [
+    { value: '0.7', display: 'I' },
+    { value: '0.85', display: 'II' },
+    { value: '1', display: 'III' }
   ]
- public pipeMaterials = [
+	// Материалы труб
+ public pipeMaterialsArray = [
     	{name: 'К50-500 МПа (50кг/мм2)', pressure: 500},
     	{name: 'К52-520 МПа (52 кг/мм2)', pressure: 520},
     	{name: 'К56-560 МПа (56 кг/мм2)', pressure: 560},

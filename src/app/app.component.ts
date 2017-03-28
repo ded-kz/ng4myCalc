@@ -10,12 +10,80 @@ import { Component } from '@angular/core';
 export class AppComponent {
   title = 'app works!';
 
-//Категория участка
-  public categoryArray = [
-    { value: '0.7', display: 'I' },
-    { value: '0.85', display: 'II' },
-    { value: '1', display: 'III' }
-  ]
+// function GetCriticallyBasedSafetyFactor() {
+//             var workPressure = Ext.getCmp('WorkPressure').getValue();
+//             var pipeOuterDiameter = Ext.getCmp('PipeOuterDiameter').getValue();
+//             if (workPressure != undefined && pipeOuterDiameter != undefined) {
+//                 if (workPressure <= 5.4) {
+//                     if (pipeOuterDiameter < 1200) {
+//                         Ext.getCmp('CriticallyBasedSafetyFactor').setValue('1.15');
+//                     }
+//                     else {
+//                         Ext.getCmp('CriticallyBasedSafetyFactor').setValue('1.20');
+//                     }
+//                 }
+//                 else if (workPressure > 5.4 && workPressure <= 7.4) {
+//                     if (pipeOuterDiameter < 1200) {
+//                         Ext.getCmp('CriticallyBasedSafetyFactor').setValue('1.15');
+//                     }
+//                     else if (pipeOuterDiameter >= 1200 && pipeOuterDiameter < 1400) {
+//                         Ext.getCmp('CriticallyBasedSafetyFactor').setValue('1.20');
+//                     }
+//                     else {
+//                         Ext.getCmp('CriticallyBasedSafetyFactor').setValue('1.25');
+//                     }
+//                 }
+//                 else if (workPressure > 7.4 && workPressure <= 9.8) {
+//                     if (pipeOuterDiameter < 600) {
+//                         Ext.getCmp('CriticallyBasedSafetyFactor').setValue('1.15');
+//                     }
+//                     else if (pipeOuterDiameter >= 600 && pipeOuterDiameter < 1200) {
+//                         Ext.getCmp('CriticallyBasedSafetyFactor').setValue('1.20');
+//                     }
+//                     else if (pipeOuterDiameter >= 1200 && pipeOuterDiameter < 1400) {
+//                         Ext.getCmp('CriticallyBasedSafetyFactor').setValue('1.25');
+//                     }
+//                     else {
+//                         Ext.getCmp('CriticallyBasedSafetyFactor').setValue('1.30');
+//                     }
+//                 }
+//             }
+//         }
+
+
+
+ // возвращает коэффициент надежности по ответственности трубопровода
+//    function getReliabilityCoef(pressure, diameter) {
+ //       var p = pressure;
+   //     var D = diameter;
+     //   if (D < 600)
+       //     return 1.15;
+       // else
+       // if (D >= 600 && D < 1200)
+         //   if (p <= 7.4)
+           //     return 1.15;
+           // else
+            //    return 1.2;
+//        else
+  //      if (D >= 1200 && D < 1400)
+    //        if (p <= 7.4)
+      //          return 1.2;
+        //    else
+        //        return 1.25;
+//        else
+  //      if (D >= 1400) {
+    //        if (p <= 5.4)
+      //          return 1.2;
+        //    if (p > 5.4 && p <= 7.4)
+          //      return 1.25;
+           // else
+           //     return 1.3;
+   //     } else
+     //       return 0;
+ //   }
+	
+
+
 	// Материалы труб
  public pipeMaterialsArray = [
     	{name: 'К50-500 МПа (50кг/мм2)', pressure: 500},
@@ -47,6 +115,21 @@ export class AppComponent {
     	{name: '17Г2С-540 МПа (54кг/мм2)', pressure: 540},
     	{name: '17Г2СФ-480 МПа (47кг/мм2)', pressure: 480},
     	{name: '17Г2СФ-540 МПа (54кг/мм2)', pressure: 540}
-    ];
+    ]
+
+//Категория участка
+  public categoryArray = [
+    { value: '0.7', display: 'I' },
+    { value: '0.85', display: 'II' },
+    { value: '1', display: 'III' }
+  ]
+
+//Коэффициент надежности по материалу труб:
+ public pipematRelCoefArray = [
+    { value: '1.34', display: '1.34' },
+    { value: '1.40', display: '1.40' },
+    { value: '1.47', display: '1.47' },
+    { value: '1.55', display: '1.55' }
+  ];
 
 }

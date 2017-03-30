@@ -27,32 +27,32 @@
         <div class="card-block">
             <div class="row">
                 <div class="form-group col-12 col-sm-12 col-md-12 col-lg-8">
-                    <span class="label label-primary">Принадлежность:</span>
-                    <input type="text" class="form-control " name="" id="km" value="УМГ Уральск, Уральское ЛПУ, МГ САЦ-4, I-нитка, 1024 км.">
+                    <label for="km">Принадлежность:</label>
+                    <input type="text" class="form-control" name="" id="km" value="УМГ Уральск, Уральское ЛПУ, МГ САЦ-4, I-нитка, 1024 км.">
                 </div>
                 <div class="form-group col-12 col-sm-12 col-md-12 col-lg-4">
-                    <span class="label label-primary">ГОСТ или технические условия:</span>
-                    <input type="text" class="form-control " name="" id="" value="">
+                    <label for="gostTex">ГОСТ или технические условия:</label>                    
+                    <input type="text" class="form-control" name="" id="gostTex" value="">
                 </div>
                 <div class="form-group col-12 col-sm-12 col-md-12 col-lg-4">
-                    <span class="label label-primary">Изготовитель:</span>
-                    <input type="text" class="form-control " name="manufacturer" id="manufacturer" value="">
+                    <label for="manufacturer">Изготовитель:</label>                   
+                    <input type="text" class="form-control" name="manufacturer" id="manufacturer" value="">
                 </div>
                 <div class="form-group col-12 col-sm-12 col-md-12 col-lg-4">
-                    <span class="label label-primary">Материал трубы:</span>
+                      <label for="selectedMaterial">Материал трубы:</label>                      
                     <div class="input-group">
                         <select name="pipeMaterial" class="form-control" [(ngModel)]="pipeMaterial" id="selectedMaterial">
                         <option *ngFor="let pipeMaterial of pipeMaterialsArray" [value]="pipeMaterial.pressure">{{pipeMaterial.name}}</option>
                         </select>
                         <span class="input-group-btn">
-                        <button class="btn btn-secondary  btn-sm" type="button" data-toggle="tooltip" data-placement="bottom" 
+                        <button class="btn btn-secondary btn-sm" type="button" data-toggle="tooltip" data-placement="bottom" 
                         title="Предел прочности металла трубы (МПа)">{{pipeMaterial}}</button></span>
                     </div>
                 </div>
                 <div class="form-group col-12 col-sm-12 col-md-12 col-lg-2">
-                    <span class="label label-primary">Категория участка:</span>
+                      <label for="category">Категория участка:</label> 
                     <div class="input-group">
-                        <select name="category" class="form-control " id="category" [(ngModel)]="category">
+                        <select name="category" class="form-control" id="category" [(ngModel)]="category">
                         <option *ngFor="let category of categoryArray" [value]="category.value">{{category.display}}</option>
                         </select>
                         <span class="input-group-btn"><button type="button" class="btn btn-secondary btn-sm" data-toggle="tooltip" data-placement="bottom" 
@@ -61,18 +61,18 @@
                     </div>
                 </div>
                 <div class="form-group col-12 col-sm-12 col-md-12 col-lg-2">
-                    <span class="label label-primary">Рабочее давление (МПа):</span>
-                    <input type="number" class="form-group form-control " name="workingPressure" id="workingPressure" min="0" max="9.8" step="0.1"
+                      <label for="workingPressure">Рабочее давление (МПа):</label> 
+                    <input type="number" class="form-group form-control" name="workingPressure" id="workingPressure" min="0" max="9.8" step="0.1"
                         [(ngModel)]="workPressure">
                 </div>
                 <div class="form-group col-12 col-sm-12 col-md-12 col-lg-2">
-                    <span class="label label-primary">Толщина стенки (мм):</span>
-                    <input type="number" class="form-group form-control " name="frameWidth" id="frameWidth" min="0" max="25" step="1" value="12">
+                      <label for="frameWidth">Толщина стенки (мм):</label> 
+                    <input type="number" class="form-group form-control" name="frameWidth" id="frameWidth" min="0" max="25" step="1" value="12">
                 </div>
                 <div class="form-group col-12 col-sm-12 col-md-12 col-lg-2">
-                    <span class="label label-primary">Внешний диаметр(мм):</span>
+                      <label for="outerWidth">Внешний диаметр(мм):</label> 
                     <div class="input-group">
-                        <input type="number" class="form-group form-control " name="outerWidth" id="outerWidth" min="0" max="1420" step="1" value="1420"
+                        <input type="number" class="form-group form-control" name="outerWidth" id="outerWidth" min="0" max="1420" step="1" value="1420"
                             [(ngModel)]="pipeOuterDiameter">
                         <span class="input-group-btn"><button type="button" class="btn btn-secondary btn-sm" data-toggle="tooltip" data-placement="bottom" 
                         title="Коэффициент надежности по ответственности трубопровода">{{pipeRelCoef}}</button></span>
@@ -80,35 +80,35 @@
                     </div>
                 </div>
                 <div class="form-group col-12 col-sm-12 col-md-12 col-lg-4">
-                    <span class="label label-primary">Коэффициент надежности по нагрузке:</span>
+                      <label for="loadCoef">Коэффициент надежности по нагрузке:</label> 
                     <div class="input-group">
                         <input type="number" class="form-group form-control" name="loadCoef" id="loadCoef" min="0.8" max="1.5" step="0.1" value="1.1">
                         <span class="input-group-btn"><button type="button" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#modelId">?</button></span>
                     </div>
                 </div>
                 <div class="form-group col-12 col-sm-12 col-md-12 col-lg-4">
-                    <span class="label label-primary">Коэффициент надежности по материалу труб:</span>
+                      <label for="pipematRelCoef">Коэффициент надежности по материалу труб:</label> 
                     <div class="input-group">
-                        <select name="pipematRelCoef" class="form-control " id="pipematRelCoef" [(ngModel)]="pipematRelCoef">
+                        <select name="pipematRelCoef" class="form-control" id="pipematRelCoef" [(ngModel)]="pipematRelCoef">
                         <option *ngFor="let pipematRelCoef of pipematRelCoefArray" [value]="pipematRelCoef.value">{{pipematRelCoef.display}}</option></select>
                         <span class="input-group-btn"><button type="button" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#modelId3">?</button></span>
                     </div>
                 </div>
-                <div class="form-group col-12 col-sm-12 col-md-12 col-lg-4">
-                    <span class="label label-primary">Температурный перепад (град. С):</span>
-                    <input type="number" class="form-group form-control " name="tempDelta" id="tempDelta" min="-100" max="100" step="1" value="30">
+                <div class="form-group col-12 col-sm-12 col-md-12 col-lg-4">                
+                      <label for="tempDelta">Температурный перепад (град. С):</label>                     
+                    <input type="number" class="form-group form-control" name="tempDelta" id="tempDelta" min="-100" max="100" step="1" value="30">
                 </div>
                 <div class="form-group col-12 col-sm-12 col-md-12 col-lg-4">
-                    <span class="label label-primary">Скорость роста дефекта в длину (мм/год):</span>
-                    <input type="number" class="form-group form-control " name="lVelocity" id="lVelocity" min="0" max="10" step="0.1" value="0.1">
+                      <label for="lVelocity">Скорость роста дефекта в длину (мм/год):</label>  
+                    <input type="number" class="form-group form-control" name="lVelocity" id="lVelocity" min="0" max="10" step="0.1" value="0.1">
                 </div>
                 <div class="form-group col-12 col-sm-12 col-md-12 col-lg-4">
-                    <span class="label label-primary">Скорость роста дефекта в глубину (мм/год):</span>
-                    <input type="number" class="form-group form-control " name="dVelocity" id="dVelocity" min="0" max="10" step="1" value="0.01">
+                      <label for="dVelocity">Скорость роста дефекта в глубину (мм/год):</label> 
+                    <input type="number" class="form-group form-control" name="dVelocity" id="dVelocity" min="0" max="10" step="1" value="0.01">
                 </div>
             </div>
         </div>
-        <div class="card-footer text-muted ">
+        <div class="card-footer text-muted">
             <button type="button" class="btn btn-success">Рассчитать</button>
             <button type="button" class="btn btn-primary">Сохранить</button>
             <button type="button" class="btn btn-danger">Сбросить</button>

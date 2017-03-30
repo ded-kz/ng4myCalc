@@ -10,57 +10,13 @@ import { Component } from '@angular/core';
 export class AppComponent {
   title = 'app works!';
 
-
-  // function GetCriticallyBasedSafetyFactor() {
-  //             var workPressure = Ext.getCmp('WorkPressure').getValue();
-  //             var pipeOuterDiameter = Ext.getCmp('PipeOuterDiameter').getValue();
-  //             if (workPressure != undefined && pipeOuterDiameter != undefined) {
-  //                 if (workPressure <= 5.4) {
-  //                     if (pipeOuterDiameter < 1200) {
-  //                         Ext.getCmp('CriticallyBasedSafetyFactor').setValue('1.15');
-  //                     }
-  //                     else {
-  //                         Ext.getCmp('CriticallyBasedSafetyFactor').setValue('1.20');
-  //                     }
-  //                 }
-  //                 else if (workPressure > 5.4 && workPressure <= 7.4) {
-  //                     if (pipeOuterDiameter < 1200) {
-  //                         Ext.getCmp('CriticallyBasedSafetyFactor').setValue('1.15');
-  //                     }
-  //                     else if (pipeOuterDiameter >= 1200 && pipeOuterDiameter < 1400) {
-  //                         Ext.getCmp('CriticallyBasedSafetyFactor').setValue('1.20');
-  //                     }
-  //                     else {
-  //                         Ext.getCmp('CriticallyBasedSafetyFactor').setValue('1.25');
-  //                     }
-  //                 }
-  //                 else if (workPressure > 7.4 && workPressure <= 9.8) {
-  //                     if (pipeOuterDiameter < 600) {
-  //                         Ext.getCmp('CriticallyBasedSafetyFactor').setValue('1.15');
-  //                     }
-  //                     else if (pipeOuterDiameter >= 600 && pipeOuterDiameter < 1200) {
-  //                         Ext.getCmp('CriticallyBasedSafetyFactor').setValue('1.20');
-  //                     }
-  //                     else if (pipeOuterDiameter >= 1200 && pipeOuterDiameter < 1400) {
-  //                         Ext.getCmp('CriticallyBasedSafetyFactor').setValue('1.25');
-  //                     }
-  //                     else {
-  //                         Ext.getCmp('CriticallyBasedSafetyFactor').setValue('1.30');
-  //                     }
-  //                 }
-  //             }
-  //         }
-
-
-
   // возвращает коэффициент надежности по ответственности трубопровода
+ public workPressure: number; 
+ public pipeOuterDiameter: number;
+ public pipeRelCoef: number;
 
-  workPressure = 5.5;
-  pipeOuterDiameter = 1020;
-  pipeRelCoef = 0;
-  public constructor() {
-
-    if (this.workPressure != undefined && this.pipeOuterDiameter != undefined) {
+ GetCriticallyBasedSafetyFactor() {  
+      if (this.workPressure != undefined && this.pipeOuterDiameter != undefined) {
       if (this.workPressure <= 5.4) {
         if (this.pipeOuterDiameter < 1200) {
           this.pipeRelCoef = 1.15;
@@ -95,7 +51,11 @@ export class AppComponent {
         }
       }
     }
+    else{
+       this.pipeRelCoef = undefined;
+    }
   }
+ 
   // Материалы труб
   public pipeMaterialsArray = [
     { name: 'К50-500 МПа (50кг/мм2)', pressure: 500 },

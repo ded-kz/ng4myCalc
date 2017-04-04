@@ -4,8 +4,11 @@ import { FormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
 
 import { AppComponent } from './app.component';
-import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
-import { MaterialModule } from '@angular/material';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { ReactiveFormsModule } from '@angular/forms';
+
+
+
 
 @NgModule({
   declarations: [AppComponent],
@@ -13,12 +16,10 @@ import { MaterialModule } from '@angular/material';
     BrowserModule,
     FormsModule,
     HttpModule,
-    NgbModule.forRoot(),
-    MaterialModule.forRoot()
-  ],
+    NgbModule.forRoot()],
   providers: [],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
-export class PizzaPartyAppModule { }
+
 

@@ -1,4 +1,9 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { rangeValidator } from './control-validators';
+import { MyFields } from './myFields';
+
+
 
 
 @Component({
@@ -11,12 +16,12 @@ export class AppComponent {
   title = 'app works!';
 
   // возвращает коэффициент надежности по ответственности трубопровода
- public workPressure: number; 
+ public workPressure: number;
  public pipeOuterDiameter: number;
  public pipeRelCoef: number;
 
- GetCriticallyBasedSafetyFactor() {  
-      if (this.workPressure != undefined && this.pipeOuterDiameter != undefined) {
+ GetCriticallyBasedSafetyFactor() {
+      if (this.workPressure !== undefined && this.pipeOuterDiameter !== undefined) {
       if (this.workPressure <= 5.4) {
         if (this.pipeOuterDiameter < 1200) {
           this.pipeRelCoef = 1.15;
@@ -55,7 +60,6 @@ export class AppComponent {
        this.pipeRelCoef = undefined;
     }
   }
- 
   // Материалы труб
   public pipeMaterialsArray = [
     { name: 'К50-500 МПа (50кг/мм2)', pressure: 500 },
@@ -104,4 +108,54 @@ export class AppComponent {
     { value: '1.55', display: '1.55' }
   ];
 
+}
+
+//Валидация контролов
+export class CustomValidatorsComponent implements OnInit {
+  userForm: FormGroup;
+  myField: MyFields;
+
+formErrors={
+  "workingPressure": ""
+};
+validationMessages={
+  "workingPressure": {
+    "required": "Обязательное поле."
+  }
+};
+  constructor(private fb:FormBuilder) { }
+  ngOnInit() {
+    this.buildForm();
+  }
+  buildForm(){
+    this.userForm=this.fb.group({
+      "workingPressure": [this.myField.workingPressure [
+        Validators.required,
+        rangeValidator(0, 9.8)
+      ]]
+    });
+  this.userForm.valueChanges
+    .subscribe(data=>this.onValueChange(data));
+  this.onValueChange();
+  }
+  onValueChange(data?: any){
+    if (!this.userForm) return;
+    let form=this.userForm;
+
+    for (let field in this.formErrors) {
+      this.formErrors[field]="";
+      let control=form.get(field);
+
+      if (control && control.dirty && !control.valid) {
+        let message=this.validationMessages[field];
+        for (let key in control.errors) {
+          this.formErrors[field]+=message[key]+"";
+        }
+      }
+    }
+  }
+  onSubmit() {
+    console.log("submitted");
+    console.log(this.userForm.value);
+  }
 }

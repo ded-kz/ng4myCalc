@@ -5,6 +5,9 @@ import { HttpModule } from '@angular/http';
 
 import { AppComponent } from './app.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+
+import { CommonModule } from '@angular/common';
+
 import { ReactiveFormsModule } from '@angular/forms';
 
 
@@ -14,6 +17,8 @@ import { ReactiveFormsModule } from '@angular/forms';
   declarations: [AppComponent],
   imports: [
     BrowserModule,
+  CommonModule,
+  ReactiveFormsModule,
     FormsModule,
     HttpModule,
     NgbModule.forRoot()],
@@ -21,5 +26,8 @@ import { ReactiveFormsModule } from '@angular/forms';
   bootstrap: [AppComponent]
 })
 export class AppModule { }
+
+
+
 
 

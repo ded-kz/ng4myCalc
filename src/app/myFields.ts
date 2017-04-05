@@ -1,6 +1,6 @@
 export class MyFields {
-  constructor(
-    public workingPressure: number
-  )
-{
-}}
+  
+    public workingPressure: number;
+  
+}
+

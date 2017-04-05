@@ -7,8 +7,8 @@ describe('ng4my-calc App', () => {
     page = new Ng4myCalcPage();
   });
 
-  it('should display message saying app works', () => {
+  /*it('should display message saying app works', () => {
     page.navigateTo();
     expect(page.getParagraphText()).toEqual('app works!');
-  });
+  });*/
 });

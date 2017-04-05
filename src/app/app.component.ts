@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
-import { rangeValidator } from './control-validators';
 import { MyFields } from './myFields';
+import { rangeValidator } from './control-validators';
+
 
 
 
@@ -113,31 +114,37 @@ export class AppComponent {
 //Валидация контролов
 export class CustomValidatorsComponent implements OnInit {
   userForm: FormGroup;
-  myField: MyFields;
+  myField: MyFields=new MyFields();
 
 formErrors={
   "workingPressure": ""
 };
 validationMessages={
   "workingPressure": {
-    "required": "Обязательное поле."
+    "required": "Обязательное поле.",
+    "rangeValidator": "Значение должно быть в диапазоне от 0 до 9.8"
   }
 };
   constructor(private fb:FormBuilder) { }
+
   ngOnInit() {
     this.buildForm();
   }
+
   buildForm(){
     this.userForm=this.fb.group({
-      "workingPressure": [this.myField.workingPressure [
+      "workingPressure": [this.myField.workingPressure, [
         Validators.required,
         rangeValidator(0, 9.8)
       ]]
     });
+
   this.userForm.valueChanges
     .subscribe(data=>this.onValueChange(data));
+
   this.onValueChange();
-  }
+}
+
   onValueChange(data?: any){
     if (!this.userForm) return;
     let form=this.userForm;
@@ -149,11 +156,12 @@ validationMessages={
       if (control && control.dirty && !control.valid) {
         let message=this.validationMessages[field];
         for (let key in control.errors) {
-          this.formErrors[field]+=message[key]+"";
+          this.formErrors[field]+=message[key]+" ";
         }
       }
     }
   }
+
   onSubmit() {
     console.log("submitted");
     console.log(this.userForm.value);

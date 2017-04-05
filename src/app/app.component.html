@@ -25,9 +25,9 @@
             Данные об участке МГ
         </div>
         <div class="card-block">
+             <form [formGroup]="userForm" (ngSubmit)="onSubmit()">
             <div class="row">
-              <form [formGroup]="userForm" (ngSubmit)="onSubmit()">
-                <div class="form-group col-12 col-sm-12 col-md-12 col-lg-8">
+                            <div class="form-group col-12 col-sm-12 col-md-12 col-lg-8">
                     <label for="km">Принадлежность:</label>
                     <input type="text" class="form-control" name="" id="km" value="УМГ Уральск, Уральское ЛПУ, МГ САЦ-4, I-нитка, 1024 км.">
                 </div>
@@ -63,13 +63,14 @@
                 </div>
                 <div class="form-group col-12 col-sm-12 col-md-12 col-lg-2">
                       <label for="workingPressure">Рабочее давление (МПа):</label>
-                    <input type="number" class="form-group form-control" name="workingPressure" id="workingPressure" step="0.1"
-                        [(ngModel)]="workPressure" (ngModelChange)="GetCriticallyBasedSafetyFactor()" formControlName="workingPressure" data-toggle="tooltip" data-placement="bottom"
+                    <input type="number" class="form-group form-control" name="workingPressure" id="workingPressure"
+                        [(ngModel)]="workPressure" (ngModelChange)="GetCriticallyBasedSafetyFactor()" formControlName="workingPressure" required data-toggle="tooltip" data-placement="bottom"
                         title="Пожалуйста, заполните это поле.">
+                  <div *ngIf="formErrors.workingPressure" class="alert alert-danger" role="alert">
+                    {{formErrors.workingPressure}}
+                  </div>
                 </div>
-                <div ngIf="formErrors.workingPressure" class="alert alert-danger"
-                     {{formErrors.workingPressure}}
-                </div>
+
                 <div class="form-group col-12 col-sm-12 col-md-12 col-lg-2">
                       <label for="frameWidth">Толщина стенки (мм):</label>
                     <input type="number" class="form-group form-control" name="frameWidth" id="frameWidth" min="0" max="25" step="1" value="12">
@@ -111,11 +112,12 @@
                       <label for="dVelocity">Скорость роста дефекта в глубину (мм/год):</label>
                     <input type="number" class="form-group form-control" name="dVelocity" id="dVelocity" min="0" max="10" step="1" value="0.01">
                 </div>
-              </form>
             </div>
+            <!--<button type="submit" class="btn btn-success" [disable]="!userForm.valid" >Рассчитать</button>-->
+             </form>
         </div>
         <div class="card-footer text-muted">
-            <button type="button" class="btn btn-success" [disable]="!userForm.valid" >Рассчитать</button>
+
             <button type="button" class="btn btn-primary">Сохранить</button>
             <button type="button" class="btn btn-danger">Сбросить</button>
         </div>

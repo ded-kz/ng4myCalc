@@ -101,7 +101,7 @@ export class AppComponent implements OnInit {
   ];
 
   //Коэффициент надежности по материалу труб:
-  pipematRelCoefArray = [
+  pipeMatRelRatioArray = [
     { value: '1.34'},
     { value: '1.40'},
     { value: '1.47'},
@@ -111,15 +111,15 @@ export class AppComponent implements OnInit {
 
 formErrors={
   "km": "",
-  "gostTex": "",
+  "gosTex": "",
   "manufacturer": "",
   "pipeMaterialsArray": "",
   "category": "",
   "workingPressure": "",
   "frameWidth": "",
   "outerWidth": "",
-  "loadCoef": "",
-  "pipematRelCoef": "",
+  "loadRatio": "",
+  "pipeMatRelRatio": "",
   "tempDelta": "",
   "lVelocity": "",
   "dVelocity": ""
@@ -144,11 +144,11 @@ validationMessages={
     "required": "Обязательное поле.",
     "rangeValidator": "Значение должно быть в диапазоне от 0 до 1420"
   },
-  "loadCoef": {
+  "loadRatio": {
     "required": "Обязательное поле.",
     "rangeValidator": "Значение должно быть в диапазоне от 0.8 до 1.5"
   },
-  "pipematRelCoef": {
+  "pipeMatRelRatio": {
     "required": "Обязательное поле."
   },
   "tempDelta": {
@@ -173,7 +173,7 @@ validationMessages={
       "km": [this.myField.km, [
         // нет правил.
       ]],
-      "gostTex": [this.myField.gostTex,[
+      "gosTex": [this.myField.gosTex,[
         // нет правил.
       ]],
       "manufacturer": [this.myField.manufacturer,[
@@ -197,20 +197,20 @@ validationMessages={
         Validators.required,
         rangeValidator(0, 1420)
       ]],
-      "loadCoef": [this.myField.loadCoef, [
+      "loadRatio": [this.myField.loadRatio, [
         Validators.required,
         rangeValidator(0.8, 1.5)
       ]],
-      "pipematRelCoef": [this.myField.pipematRelCoef,[
+      "pipeMatRelRatio": [this.myField.pipeMatRelRatio,[
         Validators.required
       ]],
       "tempDelta": [this.myField.tempDelta, [
         rangeValidator(-100, 100)
       ]],
-      "lVelocity": [this.myField.tempDelta, [
+      "lVelocity": [this.myField.lVelocity, [
         rangeValidator(0, 10)
       ]],
-      "dVelocity": [this.myField.tempDelta, [
+      "dVelocity": [this.myField.dVelocity, [
         rangeValidator(0, 10)
       ]]
     });

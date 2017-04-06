@@ -4,17 +4,16 @@ import { MyFields } from './myFields';
 import { rangeValidator } from './control-validators';
 
 
-
-
-
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css']
 })
 
-export class AppComponent {
-  title = 'app works!';
+export class AppComponent implements OnInit {
+  userForm: FormGroup;
+  myField: MyFields=new MyFields();
+
 
   // возвращает коэффициент надежности по ответственности трубопровода
  public workPressure: number;
@@ -58,11 +57,11 @@ export class AppComponent {
       }
     }
     else{
-       this.pipeRelCoef = undefined;
+       this.pipeRelCoef = 0;
     }
   }
   // Материалы труб
-  public pipeMaterialsArray = [
+  pipeMaterialsArray= [
     { name: 'К50-500 МПа (50кг/мм2)', pressure: 500 },
     { name: 'К52-520 МПа (52 кг/мм2)', pressure: 520 },
     { name: 'К56-560 МПа (56 кг/мм2)', pressure: 560 },
@@ -95,36 +94,74 @@ export class AppComponent {
   ];
 
   //Категория участка
-  public categoryArray = [
+  categoryArray = [
     { value: '0.7', display: 'I' },
     { value: '0.85', display: 'II' },
     { value: '1', display: 'III' }
   ];
 
   //Коэффициент надежности по материалу труб:
-  public pipematRelCoefArray = [
-    { value: '1.34', display: '1.34' },
-    { value: '1.40', display: '1.40' },
-    { value: '1.47', display: '1.47' },
-    { value: '1.55', display: '1.55' }
+  pipematRelCoefArray = [
+    { value: '1.34'},
+    { value: '1.40'},
+    { value: '1.47'},
+    { value: '1.55'}
   ];
 
-}
-
-//Валидация контролов
-export class CustomValidatorsComponent implements OnInit {
-  userForm: FormGroup;
-  myField: MyFields=new MyFields();
 
 formErrors={
-  "workingPressure": ""
+  "km": "",
+  "gostTex": "",
+  "manufacturer": "",
+  "pipeMaterialsArray": "",
+  "category": "",
+  "workingPressure": "",
+  "frameWidth": "",
+  "outerWidth": "",
+  "loadCoef": "",
+  "pipematRelCoef": "",
+  "tempDelta": "",
+  "lVelocity": "",
+  "dVelocity": ""
 };
+
 validationMessages={
+  "pipeMaterialsArray": {
+    "required": "Обязательное поле."
+  },
+  "category": {
+    "required": "Обязательное поле."
+  },
   "workingPressure": {
     "required": "Обязательное поле.",
     "rangeValidator": "Значение должно быть в диапазоне от 0 до 9.8"
+  },
+  "frameWidth": {
+    "required": "Обязательное поле.",
+    "rangeValidator": "Значение должно быть в диапазоне от 0 до 25"
+  },
+  "outerWidth": {
+    "required": "Обязательное поле.",
+    "rangeValidator": "Значение должно быть в диапазоне от 0 до 1420"
+  },
+  "loadCoef": {
+    "required": "Обязательное поле.",
+    "rangeValidator": "Значение должно быть в диапазоне от 0.8 до 1.5"
+  },
+  "pipematRelCoef": {
+    "required": "Обязательное поле."
+  },
+  "tempDelta": {
+    "rangeValidator": "Значение должно быть в диапазоне от -100 до 100"
+  },
+  "lVelocity": {
+    "rangeValidator": "Значение должно быть в диапазоне от 0 до 10"
+  },
+  "dVelocity": {
+    "rangeValidator": "Значение должно быть в диапазоне от 0 до 10"
   }
 };
+
   constructor(private fb:FormBuilder) { }
 
   ngOnInit() {
@@ -133,9 +170,48 @@ validationMessages={
 
   buildForm(){
     this.userForm=this.fb.group({
+      "km": [this.myField.km, [
+        // нет правил.
+      ]],
+      "gostTex": [this.myField.gostTex,[
+        // нет правил.
+      ]],
+      "manufacturer": [this.myField.manufacturer,[
+        // нет правил.
+      ]],
+      "pipeMaterialsArray": [this.myField.pipeMaterialsArray,[
+        Validators.required
+      ]],
+      "category": [this.myField.category,[
+        Validators.required
+      ]],
       "workingPressure": [this.myField.workingPressure, [
         Validators.required,
         rangeValidator(0, 9.8)
+      ]],
+      "frameWidth": [this.myField.frameWidth, [
+        Validators.required,
+        rangeValidator(1, 25)
+      ]],
+      "outerWidth": [this.myField.outerWidth, [
+        Validators.required,
+        rangeValidator(0, 1420)
+      ]],
+      "loadCoef": [this.myField.loadCoef, [
+        Validators.required,
+        rangeValidator(0.8, 1.5)
+      ]],
+      "pipematRelCoef": [this.myField.pipematRelCoef,[
+        Validators.required
+      ]],
+      "tempDelta": [this.myField.tempDelta, [
+        rangeValidator(-100, 100)
+      ]],
+      "lVelocity": [this.myField.tempDelta, [
+        rangeValidator(0, 10)
+      ]],
+      "dVelocity": [this.myField.tempDelta, [
+        rangeValidator(0, 10)
       ]]
     });
 
@@ -153,13 +229,15 @@ validationMessages={
       this.formErrors[field]="";
       let control=form.get(field);
 
-      if (control && control.dirty && !control.valid) {
+      if (control  && !control.valid) {
         let message=this.validationMessages[field];
         for (let key in control.errors) {
           this.formErrors[field]+=message[key]+" ";
         }
       }
     }
+
+
   }
 
   onSubmit() {

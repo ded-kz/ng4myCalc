@@ -1,218 +1,243 @@
 <div class="container-fluid">
-    <nav class="navbar navbar-light bg-primary">
-        <a class="navbar-brand" href="/">
-            <img src="../assets/img/pipeline-icon.png" width="30" height="30" class="d-inline-block align-top" alt="">
-            <span> Калькулятор</span></a>
-    </nav>
+  <nav class="navbar navbar-light bg-primary">
+    <a class="navbar-brand" href="/">
+      <img src="../assets/img/pipeline-icon.png" width="30" height="30" class="d-inline-block align-top" alt="">
+      <span> Калькулятор</span></a>
+  </nav>
 </div>
 <div class="container-fluid">
-    <div class="jumbotron feature">
-        <h3>
-            <img src="../assets/img/pipeline-icon.png" width="35" height="35" class="d-inline-block align-top" alt="">
-            <u>Оценка опасности одиночного и группового дефекта</u>
-        </h3>
-        <p class="text-justify"> Данная программа основана на методике оценки работоспособности и долговечности труб и соединительных деталей трубопроводов
-            с коррозионными дефектами при ремонте и диагностировании участков магистральных газопроводов диаметром до 1420
-            мм с избыточным давлением газа до 9,8 МПа (100 кгс/см2) включительно. Программа предназначена для организаций,
-            выполняющих работы по диагностированию и ремонту магистральных газопроводов.
-            <a href="./src/assets/ST.pdf" target="_blank">СТА АО 970740000392-30-2013</a></p>
-        <p><a class="btn btn-success" href="#start">Приступить</a></p>
+  <div class="jumbotron feature">
+    <h3>
+      <img src="../assets/img/pipeline-icon.png" width="35" height="35" class="d-inline-block align-top" alt="">
+      <u>Оценка опасности одиночного и группового дефекта</u>
+    </h3>
+    <p class="text-justify"> Данная программа основана на методике оценки работоспособности и долговечности труб и
+      соединительных деталей трубопроводов
+      с коррозионными дефектами при ремонте и диагностировании участков магистральных газопроводов диаметром до 1420
+      мм с избыточным давлением газа до 9,8 МПа (100 кгс/см2) включительно. Программа предназначена для организаций,
+      выполняющих работы по диагностированию и ремонту магистральных газопроводов.
+      <a href="./src/assets/ST.pdf" target="_blank">СТА АО 970740000392-30-2013</a></p>
+    <p><a class="btn btn-success" href="#start">Приступить</a></p>
+  </div>
+</div>
+<div class="container-fluid">
+  <div class="card card-outline-primary" id="start">
+    <div class="card-header">
+      Данные об участке МГ
     </div>
-</div>
-<div class="container-fluid">
-    <div class="card card-outline-primary" id="start">
-        <div class="card-header">
-            Данные об участке МГ
-        </div>
-        <div class="card-block">
-             <form [formGroup]="userForm" (ngSubmit)="onSubmit()">
-            <div class="row">
-                            <div class="form-group col-12 col-sm-12 col-md-12 col-lg-8">
-                    <label for="km">Принадлежность:</label>
-                    <input type="text" class="form-control" name="" id="km" value="УМГ Уральск, Уральское ЛПУ, МГ САЦ-4, I-нитка, 1024 км.">
-                </div>
-                <div class="form-group col-12 col-sm-12 col-md-12 col-lg-4">
-                    <label for="gostTex">ГОСТ или технические условия:</label>
-                    <input type="text" class="form-control" name="" id="gostTex" value="">
-                </div>
-                <div class="form-group col-12 col-sm-12 col-md-12 col-lg-4">
-                    <label for="manufacturer">Изготовитель:</label>
-                    <input type="text" class="form-control" name="manufacturer" id="manufacturer" value="">
-                </div>
-                <div class="form-group col-12 col-sm-12 col-md-12 col-lg-4">
-                      <label for="selectedMaterial">Материал трубы:</label>
-                    <div class="input-group">
-                        <select name="pipeMaterial" class="form-control" [(ngModel)]="pipeMaterial" id="selectedMaterial">
-                        <option *ngFor="let pipeMaterial of pipeMaterialsArray" [value]="pipeMaterial.pressure">{{pipeMaterial.name}}</option>
-                        </select>
-                        <span class="input-group-btn">
-                        <button class="btn btn-secondary btn-sm" type="button" data-toggle="tooltip" data-placement="bottom"
-                        title="Предел прочности металла трубы (МПа)">{{pipeMaterial}}</button></span>
-                    </div>
-                </div>
-                <div class="form-group col-12 col-sm-12 col-md-12 col-lg-2">
-                      <label for="category">Категория участка:</label>
-                    <div class="input-group">
-                        <select name="category" class="form-control" id="category" [(ngModel)]="category">
-                        <option *ngFor="let category of categoryArray" [value]="category.value">{{category.display}}</option>
-                        </select>
-                        <span class="input-group-btn"><button type="button" class="btn btn-secondary btn-sm" data-toggle="tooltip" data-placement="bottom"
-                        title="Коэффициент условий работы">{{category}}</button></span>
-                        <span class="input-group-btn"><button type="button" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#modelId2">?</button></span>
-                    </div>
-                </div>
-                <div class="form-group col-12 col-sm-12 col-md-12 col-lg-2">
-                      <label for="workingPressure">Рабочее давление (МПа):</label>
-                    <input type="number" class="form-group form-control" name="workingPressure" id="workingPressure"
-                        [(ngModel)]="workPressure" (ngModelChange)="GetCriticallyBasedSafetyFactor()" formControlName="workingPressure" required data-toggle="tooltip" data-placement="bottom"
-                        title="Пожалуйста, заполните это поле.">
-                  <div *ngIf="formErrors.workingPressure" class="alert alert-danger" role="alert">
-                    {{formErrors.workingPressure}}
-                  </div>
-                </div>
-
-                <div class="form-group col-12 col-sm-12 col-md-12 col-lg-2">
-                      <label for="frameWidth">Толщина стенки (мм):</label>
-                    <input type="number" class="form-group form-control" name="frameWidth" id="frameWidth" min="0" max="25" step="1" value="12">
-                </div>
-                <div class="form-group col-12 col-sm-12 col-md-12 col-lg-2">
-                      <label for="outerWidth">Внешний диаметр(мм):</label>
-                    <div class="input-group">
-                        <input type="number" class="form-group form-control" name="outerWidth" id="outerWidth" min="0" max="1420" step="1"
-                            [(ngModel)]="pipeOuterDiameter" (ngModelChange)="GetCriticallyBasedSafetyFactor()">
-                        <span class="input-group-btn"><button type="button" class="btn btn-secondary btn-sm" data-toggle="tooltip" data-placement="bottom"
-                        title="Коэффициент надежности по ответственности трубопровода">{{pipeRelCoef}}</button></span>
-                        <span class="input-group-btn"><button type="button" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#modelId4">?</button></span>
-                    </div>
-                </div>
-                <div class="form-group col-12 col-sm-12 col-md-12 col-lg-4">
-                      <label for="loadCoef">Коэффициент надежности по нагрузке:</label>
-                    <div class="input-group">
-                        <input type="number" class="form-group form-control" name="loadCoef" id="loadCoef" min="0.8" max="1.5" step="0.1" value="1.1">
-                        <span class="input-group-btn"><button type="button" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#modelId">?</button></span>
-                    </div>
-                </div>
-                <div class="form-group col-12 col-sm-12 col-md-12 col-lg-4">
-                      <label for="pipematRelCoef">Коэффициент надежности по материалу труб:</label>
-                    <div class="input-group">
-                        <select name="pipematRelCoef" class="form-control" id="pipematRelCoef" [(ngModel)]="pipematRelCoef">
-                        <option *ngFor="let pipematRelCoef of pipematRelCoefArray" [value]="pipematRelCoef.value">{{pipematRelCoef.display}}</option></select>
-                        <span class="input-group-btn"><button type="button" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#modelId3">?</button></span>
-                    </div>
-                </div>
-                <div class="form-group col-12 col-sm-12 col-md-12 col-lg-4">
-                      <label for="tempDelta">Температурный перепад (град. С):</label>
-                    <input type="number" class="form-group form-control" name="tempDelta" id="tempDelta" min="-100" max="100" step="1" value="30">
-                </div>
-                <div class="form-group col-12 col-sm-12 col-md-12 col-lg-4">
-                      <label for="lVelocity">Скорость роста дефекта в длину (мм/год):</label>
-                    <input type="number" class="form-group form-control" name="lVelocity" id="lVelocity" min="0" max="10" step="0.1" value="0.1">
-                </div>
-                <div class="form-group col-12 col-sm-12 col-md-12 col-lg-4">
-                      <label for="dVelocity">Скорость роста дефекта в глубину (мм/год):</label>
-                    <input type="number" class="form-group form-control" name="dVelocity" id="dVelocity" min="0" max="10" step="1" value="0.01">
-                </div>
+    <form [formGroup]="userForm" (ngSubmit)="onSubmit()">
+      <div class="card-block">
+        <div class="row">
+          <div class="form-group col-12 col-sm-12 col-md-12 col-lg-8">
+            <label for="km">Принадлежность:</label>
+            <input type="text" class="form-control" id="km" formControlName="km"
+                   value="УМГ Уральск, Уральское ЛПУ, МГ САЦ-4, I-нитка, 1024 км.">
+          </div>
+          <div class="form-group col-12 col-sm-12 col-md-12 col-lg-4">
+            <label for="gostTex">ГОСТ или технические условия:</label>
+            <input type="text" class="form-control" id="gostTex" formControlName="gostTex">
+          </div>
+          <div class="form-group col-12 col-sm-12 col-md-12 col-lg-4">
+            <label for="manufacturer">Изготовитель:</label>
+            <input type="text" class="form-control" id="manufacturer" formControlName="manufacturer">
+          </div>
+          <div class="form-group col-12 col-sm-12 col-md-12 col-lg-4">
+            <label for="pipeMaterialsArray">Материал трубы:</label>
+            <div class="input-group">
+              <select class="form-control" [(ngModel)]="pipeMaterial" id="pipeMaterialsArray"
+                      formControlName="pipeMaterialsArray"
+                      placement="bottom" ngbTooltip="{{formErrors.pipeMaterialsArray}}">
+                <option *ngFor="let pipeMaterial of pipeMaterialsArray" [value]="pipeMaterial.pressure">
+                  {{pipeMaterial.name}}
+                </option>
+              </select>
+              <span class="input-group-btn">
+                      <button class="btn btn-secondary btn-sm" type="button" data-toggle="tooltip"
+                              data-placement="bottom"
+                              title="Предел прочности металла трубы (МПа)">{{pipeMaterial}}</button></span>
             </div>
-            <!--<button type="submit" class="btn btn-success" [disable]="!userForm.valid" >Рассчитать</button>-->
-             </form>
+          </div>
+          <div class="form-group col-12 col-sm-12 col-md-12 col-lg-2">
+            <label for="category">Категория участка:</label>
+            <div class="input-group">
+              <select class="form-control" id="category" [(ngModel)]="category" formControlName="category"
+                      placement="bottom" ngbTooltip="{{formErrors.category}}">
+                <option *ngFor="let category of categoryArray" [value]="category.value">{{category.display}}</option>
+              </select>
+              <span class="input-group-btn"><button type="button" class="btn btn-secondary btn-sm" data-toggle="tooltip"
+                                                    data-placement="bottom"
+                                                    title="Коэффициент условий работы">{{category}}</button></span>
+              <span class="input-group-btn"><button type="button" class="btn btn-primary btn-sm" data-toggle="modal"
+                                                    data-target="#modelId2">?</button></span>
+            </div>
+          </div>
+          <div class="form-group col-12 col-sm-12 col-md-12 col-lg-2">
+            <label for="workingPressure">Рабочее давление (МПа):</label>
+            <input type="number" class="form-group form-control" id="workingPressure" min="0" max="9.8" step="0.1"
+                   [(ngModel)]="workPressure" (ngModelChange)="GetCriticallyBasedSafetyFactor()"
+                   formControlName="workingPressure" placement="bottom"
+                   ngbTooltip="{{formErrors.workingPressure}}">
+          </div>
+          <div class="form-group col-12 col-sm-12 col-md-12 col-lg-2">
+            <label for="frameWidth">Толщина стенки (мм):</label>
+            <input type="number" class="form-group form-control" id="frameWidth" min="0" max="25" step="1"
+                   formControlName="frameWidth" placement="bottom"
+                   ngbTooltip="{{formErrors.frameWidth}}">
+          </div>
+          <div class="form-group col-12 col-sm-12 col-md-12 col-lg-2">
+            <label for="outerWidth">Внешний диаметр(мм):</label>
+            <div class="input-group">
+              <input type="number" class="form-group form-control" id="outerWidth" min="0" max="1420" step="1"
+                     formControlName="outerWidth" placement="bottom"
+                     ngbTooltip="{{formErrors.outerWidth}}" [(ngModel)]="pipeOuterDiameter"
+                     (ngModelChange)="GetCriticallyBasedSafetyFactor()">
+              <span class="input-group-btn"><button type="button" class="btn btn-secondary btn-sm" data-toggle="tooltip"
+                                                    data-placement="bottom"
+                                                    title="Коэффициент надежности по ответственности трубопровода">{{pipeRelCoef}}</button></span>
+              <span class="input-group-btn"><button type="button" class="btn btn-primary btn-sm" data-toggle="modal"
+                                                    data-target="#modelId4">?</button></span>
+            </div>
+          </div>
+          <div class="form-group col-12 col-sm-12 col-md-12 col-lg-4">
+            <label for="loadCoef">Коэффициент надежности по нагрузке:</label>
+            <div class="input-group">
+              <input type="number" class="form-group form-control" id="loadCoef" min="0.8" max="1.5" step="0.1"
+                     formControlName="loadCoef" placement="bottom"
+                     ngbTooltip="{{formErrors.loadCoef}}">
+              <span class="input-group-btn"><button type="button" class="btn btn-primary btn-sm" data-toggle="modal"
+                                                    data-target="#modelId">?</button></span>
+            </div>
+          </div>
+          <div class="form-group col-12 col-sm-12 col-md-12 col-lg-4">
+            <label for="pipematRelCoef">Коэффициент надежности по материалу труб:</label>
+            <div class="input-group">
+              <select class="form-control" id="pipematRelCoef" [(ngModel)]="pipematRelCoef"
+                      formControlName="pipematRelCoef" placement="bottom"
+                      ngbTooltip="{{formErrors.pipematRelCoef}}">
+                <option *ngFor="let pipematRelCoef of pipematRelCoefArray" [value]="pipematRelCoef.value">
+                  {{pipematRelCoef.value}}
+                </option>
+              </select>
+              <span class="input-group-btn"><button type="button" class="btn btn-primary btn-sm" data-toggle="modal"
+                                                    data-target="#modelId3">?</button></span>
+            </div>
+          </div>
+          <div class="form-group col-12 col-sm-12 col-md-12 col-lg-4">
+            <label for="tempDelta">Температурный перепад (град. С):</label>
+            <input type="number" class="form-group form-control" id="tempDelta" min="-100" max="100" step="1"
+                   formControlName="tempDelta" placement="bottom"
+                   ngbTooltip="{{formErrors.tempDelta}}">
+          </div>
+          <div class="form-group col-12 col-sm-12 col-md-12 col-lg-4">
+            <label for="lVelocity">Скорость роста дефекта в длину (мм/год):</label>
+            <input type="number" class="form-group form-control" id="lVelocity" min="0" max="10" step="0.1"
+                   formControlName="lVelocity" placement="bottom"
+                   ngbTooltip="{{formErrors.lVelocity}}">
+          </div>
+          <div class="form-group col-12 col-sm-12 col-md-12 col-lg-4">
+            <label for="dVelocity">Скорость роста дефекта в глубину (мм/год):</label>
+            <input type="number" class="form-group form-control" id="dVelocity" min="0" max="10" step="0.1"
+                   formControlName="dVelocity" placement="bottom"
+                   ngbTooltip="{{formErrors.dVelocity}}">
+          </div>
         </div>
-        <div class="card-footer text-muted">
-
-            <button type="button" class="btn btn-primary">Сохранить</button>
-            <button type="button" class="btn btn-danger">Сбросить</button>
-        </div>
-    </div>
+      </div>
+      <div class="card-footer text-muted">
+        <button type="submit" class="btn btn-success" [disabled]="!userForm.valid">Рассчитать</button>
+        <button type="button" class="btn btn-primary">Сохранить</button>
+        <button type="button" class="btn btn-danger">Сбросить</button>
+      </div>
+    </form>
+  </div>
 </div>
-
-
 
 
 <!-- Модальные подсказки-->
 <div class="modal fade" id="modelId" tabindex="-1" role="dialog" aria-labelledby="modelTitleId" aria-hidden="true">
-    <div class="modal-dialog modal-lg" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                            <span aria-hidden="true">&times;</span></button>
-                <h6 class="modal-title" id="modelTitleId">Коэффициент надежности по нагрузке</h6>
-            </div>
-            <div class="modal-body">
-                <div class="container">
-                    <div class="row">
-                        <img src="../assets/img/tooltip1.png" class="img-fluid" alt="Рисунок не найден.">
-                    </div>
-                </div>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-            </div>
+  <div class="modal-dialog modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span></button>
+        <h6 class="modal-title" id="modelTitleId">Коэффициент надежности по нагрузке</h6>
+      </div>
+      <div class="modal-body">
+        <div class="container">
+          <div class="row">
+            <img src="../assets/img/tooltip1.png" class="img-fluid" alt="Рисунок не найден.">
+          </div>
         </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+      </div>
     </div>
+  </div>
 </div>
 
 <div class="modal fade" id="modelId2" tabindex="-1" role="dialog" aria-labelledby="modelTitleId" aria-hidden="true">
-    <div class="modal-dialog modal-lg" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                            <span aria-hidden="true">&times;</span></button>
-                <h6 class="modal-title" id="modelTitleId2">Коэффициент условий работы</h6>
-            </div>
-            <div class="modal-body">
-                <div class="container">
-                    <div class="row">
-                        <img src="../assets/img/tooltip2.png" class="img-fluid" alt="Рисунок не найден.">
-                    </div>
-                </div>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-            </div>
+  <div class="modal-dialog modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span></button>
+        <h6 class="modal-title" id="modelTitleId2">Коэффициент условий работы</h6>
+      </div>
+      <div class="modal-body">
+        <div class="container">
+          <div class="row">
+            <img src="../assets/img/tooltip2.png" class="img-fluid" alt="Рисунок не найден.">
+          </div>
         </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+      </div>
     </div>
+  </div>
 </div>
 
 <div class="modal fade" id="modelId3" tabindex="-1" role="dialog" aria-labelledby="modelTitleId" aria-hidden="true">
-    <div class="modal-dialog modal-lg" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                            <span aria-hidden="true">&times;</span></button>
-                <h6 class="modal-title" id="modelTitleId3">Коэффициент надежности по материалу труб</h6>
-            </div>
-            <div class="modal-body">
-                <div class="container">
-                    <div class="row text-lg-center">
-                        <img src="../assets/img/tooltip3.png" class="img-fluid" alt="Рисунок не найден.">
-                    </div>
-                </div>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-            </div>
+  <div class="modal-dialog modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span></button>
+        <h6 class="modal-title" id="modelTitleId3">Коэффициент надежности по материалу труб</h6>
+      </div>
+      <div class="modal-body">
+        <div class="container">
+          <div class="row text-lg-center">
+            <img src="../assets/img/tooltip3.png" class="img-fluid" alt="Рисунок не найден.">
+          </div>
         </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+      </div>
     </div>
+  </div>
 </div>
 
 <div class="modal fade" id="modelId4" tabindex="-1" role="dialog" aria-labelledby="modelTitleId" aria-hidden="true">
-    <div class="modal-dialog modal-lg" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                            <span aria-hidden="true">&times;</span></button>
-                <h6 class="modal-title" id="modelTitleId4">Коэффициент надежности по ответственности трубопровода</h6>
-            </div>
-            <div class="modal-body">
-                <div class="container">
-                    <div class="row">
-                        <img src="../assets/img/tooltip4.png" class="img-fluid" alt="Рисунок не найден.">
-                    </div>
-                </div>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-            </div>
+  <div class="modal-dialog modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span></button>
+        <h6 class="modal-title" id="modelTitleId4">Коэффициент надежности по ответственности трубопровода</h6>
+      </div>
+      <div class="modal-body">
+        <div class="container">
+          <div class="row">
+            <img src="../assets/img/tooltip4.png" class="img-fluid" alt="Рисунок не найден.">
+          </div>
         </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+      </div>
     </div>
+  </div>
 </div>
 <!-- Модальные подсказки конец-->
